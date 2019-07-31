@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>cl.everis</groupId>
 	<artifactId>test-transbank</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>test-transbank</name>
 	<description>Demo project for Spring Boot</description>
 
