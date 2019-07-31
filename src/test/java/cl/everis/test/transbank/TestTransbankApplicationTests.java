@@ -22,6 +22,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import cl.everis.test.transbank.dto.SalesDTO;
+import cl.everis.test.transbank.dto.SalesResponse;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -69,18 +70,14 @@ public class TestTransbankApplicationTests {
 	@Test
 	public void getSalesTest() throws Exception {
 		HttpHeaders requestHeaders = new HttpHeaders();
-		requestHeaders.setContentType(MediaType.APPLICATION_JSON);
 		requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         requestHeaders.add("Authorization", token);
         
-        Map<String, String> params = new HashMap<>();
-        params.put("createdate", "transbank");
+        HttpEntity<?> requestEntity = new HttpEntity<>(requestHeaders);
         
-        ResponseEntity<List<SalesDTO>> responseEntity = template.exchange("/api/v1/sale", HttpMethod.GET)
-	}
-	
-	@Test
-	public void contextLoads() {
+        ResponseEntity<SalesResponse> responseEntity = template.exchange("/api/v1/sale/30-07-2019", HttpMethod.GET, requestEntity, SalesResponse.class);
+        
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
 	}
 
 }

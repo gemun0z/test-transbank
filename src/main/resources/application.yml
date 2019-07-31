@@ -1,5 +1,4 @@
 server:
-  port: 8181
   servlet:
     context-path: /test-transbank
 
@@ -16,6 +15,3 @@ spring:
   h2:
     console:
       enabled: true
-      
-  queries:
-    users-query: select username, password from users where username = ?

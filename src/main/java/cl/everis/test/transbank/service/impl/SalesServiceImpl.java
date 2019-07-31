@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cl.everis.test.transbank.dto.SalesDTO;
+import cl.everis.test.transbank.dto.SalesResponse;
 import cl.everis.test.transbank.model.Sales;
 import cl.everis.test.transbank.repository.SalesRepository;
 import cl.everis.test.transbank.service.SalesService;
@@ -19,10 +20,13 @@ public class SalesServiceImpl implements SalesService {
 	private SalesRepository salesRepository;
 
 	@Override
-	public List<SalesDTO> getSalesByCreateDate(String createDate) {
+	public SalesResponse getSalesByCreateDate(String createDate) {
 		// TODO Auto-generated method stub
 		List<Sales> sales = salesRepository.findSalesByCreateDate(createDate);
-		return sales.stream().map(p -> new SalesDTO(p.getDescription(), p.getPrice(), p.getCreateDate())).collect(Collectors.toList());
+		List<SalesDTO> salesDTOs = sales.stream().map(p -> new SalesDTO(p.getDescription(), p.getPrice(), p.getCreateDate())).collect(Collectors.toList());
+		SalesResponse response = new SalesResponse();
+		response.setSales(salesDTOs);
+		return response;
 	}
 
 	@Override
